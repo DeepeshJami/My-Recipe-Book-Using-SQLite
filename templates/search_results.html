@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search Results</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="search-results">
+        <a href="{{ url_for('index') }}" class="home-button">Home</a>
+
+        <h2>Search Results for "{{ query }}"</h2>
+
+        {% if recipes %}
+            {% for recipe in recipes %}
+                <div class="search-item">
+                    <h3><a href="{{ url_for('recipe', id=recipe['id']) }}">{{ recipe['title'] }}</a></h3>
+                    <p>{{ recipe['description'] }}</p>
+                    <!-- Add more recipe details if needed -->
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No recipes found.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

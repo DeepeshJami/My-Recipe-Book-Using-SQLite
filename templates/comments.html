@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Comments on {{ recipe['title'] }}</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div id="branding">
+                <h1><span class="highlight">My</span> Recipe Book</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="{{ url_for('index') }}">Home</a></li>
+                    <li><a href="{{ url_for('add') }}">Add Recipe</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="comments-section">
+            <h2>Comments on "{{ recipe['title'] }}"</h2>
+            {% for comment in comments %}
+                <div class="comment-box">
+                    <p class="comment-content">{{ comment['comment'] }}</p>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="add-comment-form">
+            <h2>Add a Comment</h2>
+            <form method="post">
+                <label for="comment">Your Comment</label>
+                <textarea name="comment" id="comment" required></textarea>
+                <input type="submit" value="Add Comment">
+            </form>
+        </div>
+    </div>
+</body>
+</html>

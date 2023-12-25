@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ recipe['title'] }}</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <!-- Your existing header and navigation -->
+
+    <div class="recipe-details">
+        <a href="{{ url_for('index') }}" class="home-button">Home</a>
+
+        <h2>{{ recipe['title'] }}</h2>
+        <p>{{ recipe['description'] }}</p>
+        <p><strong>Time Taken:</strong> {{ recipe['time_taken'] }}</p>
+        <p><strong>Rating:</strong> {{ recipe['rating'] }}/5</p>
+        <p><strong>Ingredients:</strong></p>
+        <ul>
+            {% for ingredient in recipe['ingredients'].split(',') %}
+                <li>{{ ingredient.strip() }}</li>
+            {% endfor %}
+        </ul>
+        <p><strong>Procedure:</strong></p>
+        <p>{{ recipe['procedure'] }}</p>
+
+        <a href="{{ url_for('edit', id=recipe['id']) }}" class="edit-button">Edit Recipe</a>
+        <!-- Inside recipe.html, where you show recipe details -->
+
+<form action="{{ url_for('delete', id=recipe['id']) }}" method="post" onsubmit="return confirm('Are you sure you want to delete this recipe?');">
+    <input type="submit" value="Delete Recipe" class="delete-button">
+</form>
+
+
+        <!-- Comments Section -->
+        <div class="comments-section">
+            <h3>Comments</h3>
+            {% for comment in comments %}
+                <div class="comment-box">
+                    <p>{{ comment['comment'] }}</p>
+                </div>
+            {% endfor %}
+        </div>
+
+        <!-- Add Comment Form -->
+        <div class="add-comment-form">
+            <h3>Add a Comment</h3>
+            <form method="post">
+                <textarea name="comment" id="comment" required></textarea>
+                <input type="submit" value="Add Comment">
+            </form>
+        </div>
+    </div>
+
+    <!-- Add additional content or footer here if needed -->
+</body>
+</html>
